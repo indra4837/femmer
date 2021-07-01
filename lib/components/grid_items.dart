@@ -2,22 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class GridItems extends StatelessWidget {
+class GridItems extends StatefulWidget {
   final String imgPath;
   final String name;
 
-  const GridItems({
+  GridItems({
     Key key,
     this.imgPath,
     this.name,
   }) : super(key: key);
 
   @override
+  _GridItemsState createState() => _GridItemsState();
+}
+
+class _GridItemsState extends State<GridItems> {
+  var liked = false;
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 4, 5, 2),
       child: Container(
-        // height: MediaQuery.of(context).size.height * 0.5,
+        height: MediaQuery.of(context).size.height * 0.5,
         decoration: BoxDecoration(
           color: Colors.grey[200],
           border: Border.all(
@@ -27,17 +34,36 @@ class GridItems extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            Align(
-              alignment: Alignment(1, -1),
-              child: IconButton(
-                icon: Icon(
-                  FontAwesomeIcons.heart,
-                  size: 20,
+            Stack(
+              children: [
+                Align(
+                  alignment: Alignment(0.9, -0.9),
+                  child: liked
+                      ? Icon(
+                          FontAwesomeIcons.solidHeart,
+                          size: 20,
+                        )
+                      : Icon(
+                          FontAwesomeIcons.heart,
+                          size: 20,
+                        ),
                 ),
-                onPressed: () {
-                  print('liked');
-                },
-              ),
+                Align(
+                  child: GestureDetector(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      color: Colors.transparent,
+                    ),
+                    onTap: () {
+                      setState(
+                        () {
+                          liked = !liked;
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
             Align(
               alignment: Alignment(0, -0.5),
@@ -45,7 +71,7 @@ class GridItems extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.15,
                 width: MediaQuery.of(context).size.width,
                 child: Image.asset(
-                  imgPath,
+                  widget.imgPath,
                   fit: BoxFit.fitHeight,
                 ),
               ),
@@ -53,7 +79,7 @@ class GridItems extends StatelessWidget {
             Align(
               alignment: Alignment(0, 0.6),
               child: Text(
-                name,
+                widget.name,
                 style: GoogleFonts.playfairDisplay(
                   textStyle: TextStyle(
                     color: Colors.black,

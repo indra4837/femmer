@@ -6,6 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../components/image_carousel.dart';
 import '../components/grid_view_list.dart';
 
+import '../models/search.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
 
@@ -62,19 +64,21 @@ class _HomePageState extends State<HomePage> {
                   IconButton(
                     icon: Icon(FontAwesomeIcons.search),
                     onPressed: () {
-                      print('home');
+                      // print('search');
+                      showSearch(
+                          context: context, delegate: CustomSearchDelegate());
                     },
                   ),
                   IconButton(
                     icon: Icon(FontAwesomeIcons.solidHeart),
                     onPressed: () {
-                      print('home');
+                      print('wishlist');
                     },
                   ),
                   IconButton(
                     icon: Icon(FontAwesomeIcons.shoppingCart),
                     onPressed: () {
-                      print('home');
+                      print('cart');
                     },
                   ),
                 ],
@@ -98,19 +102,19 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Expanded(
-              child: GestureDetector(
-                child: Align(
-                  alignment: Alignment(0.9, 0),
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(
-                      'assets/images/general/indra.jpeg',
+            Builder(
+              builder: (context) => Expanded(
+                child: GestureDetector(
+                  child: Align(
+                    alignment: Alignment(0.9, 0),
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage(
+                        'assets/images/general/indra.jpeg',
+                      ),
                     ),
                   ),
+                  onTap: () => Scaffold.of(context).openEndDrawer(),
                 ),
-                onTap: () {
-                  print('avatar');
-                },
               ),
             ),
 
@@ -144,8 +148,15 @@ class _HomePageState extends State<HomePage> {
           child: Drawer(
             child: Center(
               child: Text(
-                'user profile stuff here',
+                'browse different categories',
               ),
+            ),
+          ),
+        ),
+        endDrawer: Container(
+          child: Drawer(
+            child: Center(
+              child: Text("user profile stuff here"),
             ),
           ),
         ),

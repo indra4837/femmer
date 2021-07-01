@@ -28,7 +28,8 @@ class GridViewWidget extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       child: menPerfumeList.length != 0
           ? GridView.builder(
-              itemCount: menPerfumeList.length,
+              itemCount:
+                  menPerfumeList.length < 10 ? menPerfumeList.length : 10,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 // mainAxisSpacing: MediaQuery.of(context).size.height * 0.005,
