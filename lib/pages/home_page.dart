@@ -1,12 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:femmer/components/categories_icon.dart';
+import 'package:femmer/models/get_image_url.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../components/image_carousel.dart';
 import '../components/grid_view_list.dart';
 
-import '../models/search.dart';
+import '../models/custom_search.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -17,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
   DateTime currentBackPressTime;
 
   Future<bool> onWillPop() {
@@ -39,6 +44,7 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
       child: Scaffold(
         bottomNavigationBar: BottomAppBar(
+          color: Colors.transparent,
           elevation: 100,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(5, 0, 5, 10),
@@ -46,9 +52,9 @@ class _HomePageState extends State<HomePage> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.07,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.transparent,
                 border: Border.all(
-                  color: Colors.grey[300],
+                  color: Colors.grey[500],
                 ),
                 borderRadius: BorderRadius.circular(50),
               ),
@@ -173,9 +179,53 @@ class _HomePageState extends State<HomePage> {
                 ),
                 CarouselWidget(),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
+                  height: MediaQuery.of(context).size.height * 0.03,
                 ),
                 GridViewWidget(),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  child: Column(
+                    children: [
+                      Container(
+                        child: Align(
+                          alignment: Alignment(-1, 0),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                            child: Text(
+                              "Shop by categories",
+                              style: GoogleFonts.playfairDisplay(
+                                textStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 40),
+                        child: Container(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                CategoriesWidget(
+                                  imagePath: getImageURL('men_category.jpg'),
+                                  category: 'Men',
+                                ),
+                                CategoriesWidget(
+                                  imagePath: getImageURL('women_category.jpg'),
+                                  category: 'Women',
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

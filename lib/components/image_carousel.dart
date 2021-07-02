@@ -3,32 +3,22 @@ import 'package:carousel_pro/carousel_pro.dart';
 
 import '../components/large_home_icon.dart';
 
+import '../models/get_image_url.dart';
+
 class CarouselWidget extends StatelessWidget {
   var carouselIcons = {
     {
-      'image': 'assets/images/carousel/carousel_icon.jpg',
+      'image': 'carousel_icon.jpg',
     },
     {
-      'image': 'assets/images/carousel/carousel_icon1.jpg',
+      'image': 'carousel_icon1.jpg',
     },
     {
-      'image': 'assets/images/carousel/carousel_icon2.jpg',
+      'image': 'carousel_icon2.jpg',
     },
     {
-      'image': 'assets/images/carousel/carousel_icon3.jpg',
+      'image': 'carousel_icon3.jpg',
     },
-    // {
-    //   'image': 'jurong_jc_stadium.jpg',
-    //   'location': 'Jurong',
-    //   'rating': '3.5',
-    //   'stadium': 'Jurong JC Stadium'
-    // },
-    // {
-    //   'image': 'jalan_besar_stadium.jpg',
-    //   'location': 'Jalan Besar',
-    //   'rating': '4.4',
-    //   'stadium': 'Jalan Besar Stadium'
-    // },
   };
 
   @override
@@ -52,7 +42,7 @@ class CarouselWidget extends StatelessWidget {
         images: carouselIcons
             .map(
               (entry) => LargeIcon(
-                entry['image'],
+                getImageURL(entry['image']),
               ),
             )
             .toList(),

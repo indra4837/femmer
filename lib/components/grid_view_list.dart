@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './grid_items.dart';
+import '../models/get_image_url.dart';
 
 class GridViewWidget extends StatelessWidget {
   GridViewWidget({
@@ -9,36 +10,41 @@ class GridViewWidget extends StatelessWidget {
 
   var menPerfumeList = [
     {
-      'image': 'assets/images/men/versace_dylan_blue.png',
+      'image': 'versace_dylan_blue.png',
       'name': 'Dylan Blue',
     },
     {
-      'image': 'assets/images/men/versace_eros_flame.png',
+      'image': 'versace_eros_flame.png',
       'name': 'Eros Flame',
     },
     {
-      'image': 'assets/images/men/versace_eros.png',
+      'image': 'versace_eros.png',
       'name': 'Eros',
+    },
+    {
+      'image': 'versace_pour_homme.png',
+      'name': 'Pour Homme',
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.of(context).size.height * 0.53,
       child: menPerfumeList.length != 0
           ? GridView.builder(
-              itemCount:
-                  menPerfumeList.length < 10 ? menPerfumeList.length : 10,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: menPerfumeList.length < 4 ? menPerfumeList.length : 4,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 // mainAxisSpacing: MediaQuery.of(context).size.height * 0.005,
                 crossAxisSpacing: 0,
+                mainAxisExtent: MediaQuery.of(context).size.height * 0.25,
               ),
               itemBuilder: (_, index) {
                 if (menPerfumeList.isNotEmpty) {
                   return GridItems(
-                    imgPath: menPerfumeList[index]['image'],
+                    imgPath: getImageURL(menPerfumeList[index]['image']),
                     name: menPerfumeList[index]['name'],
                   );
                 }
